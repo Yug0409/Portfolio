@@ -334,3 +334,22 @@ body {
   background: radial-gradient(circle at center, transparent 50%, rgba(0,0,0,0.05) 100%);
   pointer-events: none;
 }
+
+/* --- Arrow Animations --- */
+@keyframes bounce-horizontal-right {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(15px); } /* Move right */
+}
+
+@keyframes bounce-horizontal-left {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-15px); } /* Move left */
+}
+
+.animate-arrow-right {
+  animation: bounce-horizontal-right 1.5s infinite ease-in-out;
+}
+
+.animate-arrow-left {
+  animation: bounce-horizontal-left 1.5s infinite ease-in-out;
+}

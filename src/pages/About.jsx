@@ -79,21 +79,29 @@ const About = () => {
           
           {/* Player Header Panel */}
           <div className="neo-panel p-8">
-            <div className="flex items-center justify-between mb-6">
-              <div>
+            <div className="flex flex-col md:flex-row items-center justify-between mb-6 gap-6">
+              <div className="text-center md:text-left">
                 <p className="text-xl font-semibold text-gray-500 uppercase">
                   Player Profile
                 </p>
                 <h1 className="text-5xl font-bold text-black">Yug Mittal</h1>
               </div>
-              <div className="text-6xl">🧑‍💻</div>
+              
+              {/* UPDATED: Bigger Image (w-48 / w-60) */}
+              <div className="w-48 h-48 md:w-60 md:h-60 rounded-full border-4 border-blue-500 overflow-hidden shadow-lg shrink-0">
+                <img 
+                  src="/Images/me.jpeg" 
+                  alt="Yug Profile" 
+                  className="w-full h-full object-cover"
+                  onError={(e) => { e.target.style.display='none'; e.target.parentNode.innerHTML = '🧑‍💻'; }} 
+                />
+              </div>
             </div>
 
-            {/* Comms Channels (Updated) */}
-            <div className="flex flex-wrap gap-3 mb-8">
-              {/* Clickable Links */}
+            {/* Comms Channels */}
+            <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8">
               <SocialLink 
-                href="https://www.linkedin.com/in/yug-mittal-red0409/?profileId=ACoAAD-cQ74BX7hYp21ePFbtP50bAUkS6BWDYcI" 
+                href="https://www.linkedin.com/in/yug-mittal-78380b252/" 
                 label="LinkedIn" 
                 icon={Icons.LinkedIn} 
               />
@@ -102,15 +110,9 @@ const About = () => {
                 label="GitHub" 
                 icon={Icons.GitHub} 
               />
-              
-              {/* Static Text (Non-clickable) */}
               <SocialLink 
                 label="yugmittal2412@gmail.com" 
                 icon={Icons.Gmail} 
-              />
-              <SocialLink 
-                label="+91 77270 82315" 
-                icon={Icons.Phone} 
               />
             </div>
 
@@ -259,7 +261,6 @@ const About = () => {
 const SocialLink = ({ href, label, icon }) => {
   const baseClasses = "flex items-center gap-2 px-4 py-2 bg-gray-100 border-2 border-gray-200 rounded-lg text-black font-medium transition-colors group";
   
-  // If href exists, render an anchor tag (clickable)
   if (href) {
     return (
       <a
@@ -274,7 +275,6 @@ const SocialLink = ({ href, label, icon }) => {
     );
   }
 
-  // If no href, render a div (static, non-clickable)
   return (
     <div className={`${baseClasses} cursor-default`}>
       <span className="text-gray-700">{icon}</span>
