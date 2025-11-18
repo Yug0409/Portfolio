@@ -101,7 +101,7 @@ const About = () => {
             {/* Comms Channels */}
             <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8">
               <SocialLink 
-                href="https://www.linkedin.com/in/yug-mittal-78380b252/" 
+                href="https://www.linkedin.com/in/yug-mittal-red0409/?profileId=ACoAAD-cQ74BX7hYp21ePFbtP50bAUkS6BWDYcI" 
                 label="LinkedIn" 
                 icon={Icons.LinkedIn} 
               />
