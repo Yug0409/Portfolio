@@ -27,7 +27,7 @@ const projects = [
     type: "2D Puzzle",
     tags: ["Unity", "Android"],
     desc: "A sleek, minimalist sliding puzzle game designed for Android. The core mechanic revolves around vertical slider rails and satisfying snap-based tile movement. I focused heavily on 'game feel'—polishing the touch inputs and designing smooth animated transitions.",
-    videoUrl: "Screen Recording 2025-11-11 215012.mp4",
+    videoUrl: "/Images/LineUp/Screen Recording 2025-11-11 215012.mp4",
     gallery: [
        "/Images/LineUp/Screenshot 2025-11-01 021119.png",
        "/Images/LineUp/Screenshot 2025-11-01 021146.png",
