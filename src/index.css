@@ -1,0 +1,336 @@
+@import url("https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap");
+@import "tailwindcss";
+@theme {
+  --color-primary: #030412;
+  --color-midnight: #06091f;
+  --color-navy: #161a31;
+  --color-indigo: #1f1e39;
+  --color-storm: #282b4b;
+  --color-aqua: #33c2cc;
+  --color-mint: #57db96;
+  --color-royal: #5c33cc;
+  --color-lavender: #7a57db;
+  --color-fuchsia: #ca2f8c;
+  --color-orange: #cc6033;
+  --color-sand: #d6995c;
+  --color-coral: #ea4884;
+  --animate-orbit: orbit 50s linear infinite;
+  @keyframes orbit {
+    0% {
+      transform: rotate(calc(var(--angle) * 1deg))
+        translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
+    }
+    100% {
+      transform: rotate(calc(var(--angle) * 1deg + 360deg))
+        translateY(calc(var(--radius) * 1px))
+        rotate(calc((var(--angle) * -1deg) - 360deg));
+    }
+  }
+  --animate-marquee: marquee 50s linear infinite;
+  --animate-marquee-vertical: marquee-vertical 50s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+
+  @keyframes marquee-vertical {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
+}
+body {
+  background: #ffffff;
+  font-family: "Funnel Display", sans-serif;
+  color: black;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+.c-space {
+  @apply sm:px-10 px-5 lg:px-15;
+}
+
+.hover-animation {
+  @apply hover:-translate-y-1 duration-200;
+}
+
+.section-spacing {
+  @apply min-h-screen mt-20 md:mt-30;
+}
+
+.text-heading {
+  @apply font-bold text-3xl md:text-4xl;
+}
+
+.headtext {
+  @apply mt-2 mb-2 text-xl;
+}
+
+.subtext {
+  @apply text-neutral-400 text-sm md:text-base text-pretty;
+}
+
+/* Navigation */
+.nav-ul {
+  @apply flex flex-col items-center gap-4 sm:flex-row md:gap-6 relative z-20;
+}
+
+.nav-li {
+  @apply text-neutral-400 hover:text-white max-sm:w-full max-sm:rounded-md py-2 max-sm:px-5;
+}
+
+.nav-link {
+  @apply text-lg md:text-base hover:text-white transition-colors;
+}
+/* Button Components */
+.btn {
+  @apply relative px-1 py-4 text-sm text-center rounded-full font-extralight bg-primary w-[12rem] cursor-pointer overflow-hidden;
+}
+
+/* About Section */
+.grid-1 {
+  @apply row-span-2 md:col-span-3 h-[15rem] md:h-full relative overflow-hidden hover:-translate-y-1 duration-200;
+}
+.grid-2 {
+  @apply row-span-1 md:col-span-3 h-[15rem] md:h-full relative overflow-hidden hover:-translate-y-1 duration-200;
+}
+.grid-3 {
+  @apply row-span-1 md:col-span-3 h-[15rem] md:h-full relative overflow-hidden hover:-translate-y-1 duration-200;
+}
+.grid-4 {
+  @apply row-span-1 md:col-span-2 h-[15rem] md:h-full relative overflow-hidden hover:-translate-y-1 duration-200;
+}
+.grid-5 {
+  @apply row-span-1 md:col-span-4 h-[15rem] md:h-full relative overflow-hidden hover:-translate-y-1 duration-200;
+}
+
+.grid-default-color {
+  @apply p-6 bg-gradient-to-b from-storm to-indigo rounded-2xl;
+}
+
+.grid-special-color {
+  @apply p-6 bg-gradient-to-b from-royal to-lavender rounded-2xl;
+}
+.grid-black-color {
+  @apply p-6 bg-gradient-to-tl from-[#3A3A3A] via-[#242424] to-[#3A3A3A] rounded-2xl;
+}
+
+/* Contact Section*/
+.field-label {
+  @apply text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70;
+}
+
+.field-input {
+  @apply w-full min-h-10 rounded-md px-3 py-2 text-sm bg-white/10 transition duration-200 placeholder-neutral-500 border border-white/10 mt-2;
+}
+
+.field-input-focus {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20;
+}
+
+.blue-gradient_text {
+  background: linear-gradient(to right, #3b82f6, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.neo-brutalism-blue {
+  background: #2b77e7;
+  border-radius: 10px;
+  box-shadow: 0.6vmin 0.6vmin #336cc1, 1vmin 1vmin #0092db;
+}
+
+/* Card/Box Styles */
+.neo-brutalism-white {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0.6vmin 0.6vmin #e0e7ff, 1.2vmin 1.2vmin #bae6fd;
+  position: relative;
+  transition:
+    background 0.3s,
+    box-shadow 0.3s,
+    transform 0.2s,
+    color 0.3s,
+    border 0.3s;
+  border: 2px solid #e0e7ff;
+  overflow: hidden;
+}
+
+.neo-brutalism-white::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  pointer-events: none;
+  /*background: linear-gradient(120deg, #3b82f6 0%, #60a5fa 30%, #fbbf24 70%, #fde68a 100%);*/
+  opacity: 0;
+  transition: opacity 0.4s;
+  z-index: 0;
+}
+
+.neo-brutalism-white:hover::before {
+  opacity: 0.35;
+}
+
+.neo-brutalism-white:hover {
+  background: #3b82f6;
+  color: #fff;
+  transform: translateY(-4px) scale(1.07) rotate(-1deg);
+  border: 2px solid #fbbf24;
+}
+
+.neo-brutalism-white:active {
+  transform: scale(0.98);
+}
+
+/* Button Styles */
+.neo-btn {
+  padding: 1rem 2rem; /* More vertical padding for better look */
+  font-weight: 700;
+  border-radius: 12px;
+  display: inline-block;
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+  transition: 
+    background 0.3s, 
+    color 0.3s, 
+    box-shadow 0.3s, 
+    transform 0.2s, 
+    border 0.3s;
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  color: #3b82f6;
+  border: 2px solid #e0e7ff;
+  box-shadow: 0.6vmin 0.6vmin #e0e7ff, 1.2vmin 1.2vmin #bae6fd;
+}
+
+.neo-btn:hover {
+  background: #3b82f6;
+  color: #fff !important;
+  font-weight: 900;
+  box-shadow: 0 0 0 4px #fbbf24, 0 0 16px 8px #fbbf24, 0 0 32px 12px #3b82f6;
+  border: 2px solid #fbbf24;
+  transform: translateY(-3px) scale(1.07);
+}
+
+.neo-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 0 8px 2px #fbbf24, 0 0 16px 4px #3b82f6;
+}
+
+.neo-btn .arrow {
+  margin-left: 0.5rem;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.neo-btn:hover .arrow,
+.group:hover .arrow {
+  transform: translateX(6px) scale(1.15);
+  filter: brightness(0) invert(1) drop-shadow(0 0 6px #fff);
+}
+
+.neo-btn:hover .btn-text {
+  color: #ffffff !important;       /* Pure white */
+  font-weight: 900 !important;     /* Bold */
+  text-shadow: none !important;    /* Remove blur glow */
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  background-clip: initial !important;
+}
+
+.neo-panel {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0.6vmin 0.6vmin #e0e7ff, 1.2vmin 1.2vmin #bae6fd;
+  position: relative;
+  transition:
+    background 0.3s,
+    box-shadow 0.3s,
+    transform 0.2s,
+    color 0.3s,
+    border 0.3s;
+  border: 2px solid #e0e7ff;
+  overflow: hidden;
+}
+
+/* --- Add this to the bottom of src/index.css --- */
+
+.game-grid-bg {
+  background-color: #f2f6fc; /* Very light blue-grey base */
+  /* Creates a technical grid pattern using your blue theme color */
+  background-image:
+    linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px; /* The size of the grid squares */
+  min-height: 100vh; /* Ensures it covers the full height */
+}
+
+/* src/index.css */
+
+.game-grid-bg {
+  background-color: #111111; /* Deep dark grey */
+  /* Two layers of grid lines: one broad, one fine */
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+  min-height: 100vh;
+}
+
+
+/* --- Game Developer Level Editor Background --- */
+
+@keyframes grid-pulse {
+  0% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.5; }
+}
+
+.game-dev-bg {
+  /* Light Tech Base Color */
+  background-color: #f5f7fa;
+  
+  /* The Grid Pattern (Like Unity/Blender Floor) */
+  background-image: 
+    /* Major Grid Lines (Darker) */
+    linear-gradient(rgba(59, 130, 246, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.15) 1px, transparent 1px),
+    /* Minor Grid Lines (Lighter) */
+    linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+    
+  /* Size: 100px for Major, 20px for Minor */
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  background-position: -1px -1px; /* Aligns lines nicely */
+  
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Optional: Adds a "Vignette" shadow to make the center pop like a UI screen */
+.game-dev-bg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, transparent 50%, rgba(0,0,0,0.05) 100%);
+  pointer-events: none;
+}
