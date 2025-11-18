@@ -27,7 +27,7 @@ const projects = [
     type: "2D Puzzle",
     tags: ["Unity", "Android"],
     desc: "A sleek, minimalist sliding puzzle game designed for Android. The core mechanic revolves around vertical slider rails and satisfying snap-based tile movement. I focused heavily on 'game feel'—polishing the touch inputs and designing smooth animated transitions.",
-    videoUrl: "/Images/LineUp/Screen Recording 2025-11-11 215012.mp4",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
     gallery: [
        "/Images/LineUp/Screenshot 2025-11-01 021119.png",
        "/Images/LineUp/Screenshot 2025-11-01 021146.png",
@@ -104,7 +104,6 @@ const ProjectModal = ({ project, onClose, onNextProject, onPrevProject }) => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Reset media index when switching projects
   useEffect(() => {
     setCurrentIndex(0);
   }, [project]);
@@ -126,40 +125,39 @@ const ProjectModal = ({ project, onClose, onNextProject, onPrevProject }) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4 animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-2 md:p-4 animate-fade-in"
       onClick={onClose}
     >
-      {/* Navigation Arrows */}
+      {/* --- PROJECT NAVIGATION ARROWS (Fixed) --- */}
+      {/* Hidden on very small screens to prevent overlay issues, visible on larger phones and up */}
       <button
         onClick={(e) => { e.stopPropagation(); onPrevProject(); }}
-        className="fixed left-4 md:left-8 top-1/2 -translate-y-1/2 z-50 bg-white/10 hover:bg-white hover:text-black text-white w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center text-3xl font-bold transition-all border-2 border-white/20 backdrop-blur-md shadow-xl"
-        title="Previous Project"
+        className="fixed left-2 md:left-8 top-1/2 -translate-y-1/2 z-50 bg-white/10 hover:bg-white hover:text-black text-white w-10 h-10 md:w-16 md:h-16 rounded-full flex items-center justify-center text-xl md:text-3xl font-bold transition-all border-2 border-white/20 backdrop-blur-md shadow-xl"
       >
         &lt;
       </button>
 
       <button
         onClick={(e) => { e.stopPropagation(); onNextProject(); }}
-        className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 bg-white/10 hover:bg-white hover:text-black text-white w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center text-3xl font-bold transition-all border-2 border-white/20 backdrop-blur-md shadow-xl"
-        title="Next Project"
+        className="fixed right-2 md:right-8 top-1/2 -translate-y-1/2 z-50 bg-white/10 hover:bg-white hover:text-black text-white w-10 h-10 md:w-16 md:h-16 rounded-full flex items-center justify-center text-xl md:text-3xl font-bold transition-all border-2 border-white/20 backdrop-blur-md shadow-xl"
       >
         &gt;
       </button>
 
-      {/* Modal Content */}
+      {/* --- MODAL CONTENT --- */}
       <div
-        className="bg-white border-4 border-black shadow-[0px_0px_40px_rgba(0,0,0,0.5)] w-full max-w-5xl relative flex flex-col overflow-hidden max-h-[95vh] rounded-lg"
+        className="bg-white border-4 border-black shadow-[0px_0px_40px_rgba(0,0,0,0.5)] w-[95%] md:w-full max-w-5xl relative flex flex-col overflow-hidden max-h-[90vh] rounded-lg"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 text-white bg-black hover:bg-red-600 w-10 h-10 flex items-center justify-center text-2xl font-bold transition-colors border-2 border-white rounded-md"
+          className="absolute top-4 right-4 z-20 text-white bg-black hover:bg-red-600 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center text-xl md:text-2xl font-bold transition-colors border-2 border-white rounded-md"
         >
           &times;
         </button>
 
-        {/* Main Media Display */}
-        <div className="relative w-full h-[50vh] md:h-[60vh] bg-neutral-900 flex items-center justify-center border-b-4 border-black">
+        {/* Main Media Display - Height adjusted for mobile */}
+        <div className="relative w-full h-[35vh] md:h-[60vh] bg-neutral-900 flex items-center justify-center border-b-4 border-black">
           {currentMedia?.type === "video" ? (
             isYouTube(currentMedia.url) ? (
               <iframe
@@ -192,13 +190,13 @@ const ProjectModal = ({ project, onClose, onNextProject, onPrevProject }) => {
             <>
               <button
                 onClick={handlePrevMedia}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white hover:text-black text-white p-3 rounded-full backdrop-blur-md transition-all border border-white/20"
+                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white hover:text-black text-white p-2 md:p-3 rounded-full backdrop-blur-md transition-all border border-white/20"
               >
                 ◀
               </button>
               <button
                 onClick={handleNextMedia}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white hover:text-black text-white p-3 rounded-full backdrop-blur-md transition-all border border-white/20"
+                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white hover:text-black text-white p-2 md:p-3 rounded-full backdrop-blur-md transition-all border border-white/20"
               >
                 ▶
               </button>
@@ -207,39 +205,43 @@ const ProjectModal = ({ project, onClose, onNextProject, onPrevProject }) => {
         </div>
 
         {/* Info Section */}
-        <div className="p-8 overflow-y-auto bg-white">
-          <div className="flex flex-col md:flex-row justify-between gap-6 mb-8 border-b-2 border-gray-100 pb-6">
+        <div className="p-4 md:p-8 overflow-y-auto bg-white">
+          <div className="flex flex-col gap-4 mb-6 border-b-2 border-gray-100 pb-6">
             <div>
-              <h2 className="text-4xl font-black text-black uppercase tracking-tight">{project.title}</h2>
-              <p className="text-blue-600 font-bold text-lg mt-1 tracking-wide">
+              {/* Responsive Text Size */}
+              <h2 className="text-2xl md:text-4xl font-black text-black uppercase tracking-tight leading-tight">
+                {project.title}
+              </h2>
+              <p className="text-blue-600 font-bold text-sm md:text-lg mt-1 tracking-wide">
                 {project.type}
               </p>
             </div>
             
+            {/* Buttons stack on mobile, row on desktop */}
             <div className="flex flex-col sm:flex-row gap-3">
               {project.downloadLinkAndroid && (
-                <a href={project.downloadLinkAndroid} download className="neo-btn flex items-center justify-center gap-2 min-w-[160px] bg-green-50 hover:bg-green-100 text-green-700 border-green-200">
+                <a href={project.downloadLinkAndroid} download className="neo-btn flex items-center justify-center gap-2 w-full sm:w-auto min-w-[160px] bg-green-50 hover:bg-green-100 text-green-700 border-green-200 py-3">
                   <span className="text-xl">🤖</span>
                   <span className="btn-text text-sm font-bold">Android APK</span>
                 </a>
               )}
 
               {project.downloadLinkPC && (
-                <a href={project.downloadLinkPC} download className="neo-btn flex items-center justify-center gap-2 min-w-[160px] bg-blue-50 hover:bg-blue-100 text-blue-700 border-blue-200">
+                <a href={project.downloadLinkPC} download className="neo-btn flex items-center justify-center gap-2 w-full sm:w-auto min-w-[160px] bg-blue-50 hover:bg-blue-100 text-blue-700 border-blue-200 py-3">
                   <span className="text-xl">💻</span>
                   <span className="btn-text text-sm font-bold">PC (EXE)</span>
                 </a>
               )}
 
               {project.walkthroughLink && (
-                <a href={project.walkthroughLink} target="_blank" rel="noopener noreferrer" className="neo-btn flex items-center justify-center gap-2 min-w-[160px] bg-yellow-50 hover:bg-yellow-100 text-yellow-700 border-yellow-200">
+                <a href={project.walkthroughLink} target="_blank" rel="noopener noreferrer" className="neo-btn flex items-center justify-center gap-2 w-full sm:w-auto min-w-[160px] bg-yellow-50 hover:bg-yellow-100 text-yellow-700 border-yellow-200 py-3">
                   <span className="text-xl">📺</span>
                   <span className="btn-text text-sm font-bold">Walkthrough</span>
                 </a>
               )}
 
               {project.githubLink && (
-                <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="neo-btn flex items-center justify-center gap-2 min-w-[160px] bg-gray-50 hover:bg-gray-100 text-gray-800 border-gray-200">
+                <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="neo-btn flex items-center justify-center gap-2 w-full sm:w-auto min-w-[160px] bg-gray-50 hover:bg-gray-100 text-gray-800 border-gray-200 py-3">
                   <span className="text-xl">🐙</span>
                   <span className="btn-text text-sm font-bold">GitHub</span>
                 </a>
@@ -247,20 +249,20 @@ const ProjectModal = ({ project, onClose, onNextProject, onPrevProject }) => {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-2 mb-8">
+          <div className="flex flex-wrap gap-2 mb-6">
             {project.tags.map((tag) => (
-              <span key={tag} className="px-4 py-1.5 bg-gray-900 text-white rounded-full text-sm font-bold tracking-wide shadow-sm">
+              <span key={tag} className="px-3 py-1 bg-gray-900 text-white rounded-full text-xs md:text-sm font-bold tracking-wide shadow-sm">
                 {tag}
               </span>
             ))}
           </div>
 
           <div className="prose max-w-none">
-            <h3 className="text-xl font-black uppercase mb-3 flex items-center gap-2">
-              <span className="w-2 h-8 bg-blue-600 block rounded-sm"></span>
+            <h3 className="text-lg md:text-xl font-black uppercase mb-3 flex items-center gap-2">
+              <span className="w-2 h-6 md:h-8 bg-blue-600 block rounded-sm"></span>
               Mission Briefing
             </h3>
-            <p className="text-lg text-gray-600 leading-relaxed font-medium">
+            <p className="text-sm md:text-lg text-gray-600 leading-relaxed font-medium">
               {project.desc}
             </p>
           </div>
@@ -276,7 +278,7 @@ const ProjectCard = ({ project, onClick }) => (
     onClick={() => onClick(project)}
     className="group relative bg-white rounded-2xl border-2 border-slate-300 hover:border-blue-600 shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden flex flex-col h-full hover:-translate-y-2"
   >
-    <div className="relative w-full h-56 bg-gray-100 overflow-hidden border-b border-gray-200">
+    <div className="relative w-full h-48 md:h-56 bg-gray-100 overflow-hidden border-b border-gray-200">
       <img
         src={project.logo}
         alt={project.title}
@@ -290,10 +292,10 @@ const ProjectCard = ({ project, onClick }) => (
     </div>
 
     <div className="p-6 flex flex-col flex-grow">
-      <h3 className="text-2xl font-extrabold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+      <h3 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
         {project.title}
       </h3>
-      <p className="text-sm font-semibold text-gray-500 mb-4 uppercase tracking-wide">
+      <p className="text-xs md:text-sm font-semibold text-gray-500 mb-4 uppercase tracking-wide">
         {project.type}
       </p>
       
@@ -322,20 +324,24 @@ const Projects = () => {
   };
 
   return (
-    <section className="max-w-7xl mx-auto p-8 lg:p-12 relative">
+    <section className="max-w-7xl mx-auto p-4 md:p-8 lg:p-12 relative overflow-x-hidden">
       
-      <div className="absolute top-0 right-0 -z-10 w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-50 translate-x-1/2 -translate-y-1/2"></div>
+      <div className="absolute top-0 right-0 -z-10 w-64 h-64 md:w-96 md:h-96 bg-blue-100 rounded-full blur-3xl opacity-50 translate-x-1/2 -translate-y-1/2"></div>
 
-      <div className="text-center mb-16">
-        <h1 className="text-6xl font-black text-gray-900 tracking-tight mb-4">
+      <div className="text-center mb-12 md:mb-16">
+        <p className="text-sm md:text-lg font-bold text-blue-600 uppercase tracking-[0.2em] mb-2">
+          My Portfolio
+        </p>
+        <h1 className="text-4xl md:text-6xl font-black text-gray-900 tracking-tight mb-4">
           Game <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Library</span>
         </h1>
-        <p className="text-gray-500 text-lg max-w-2xl mx-auto"> 
+        <p className="text-gray-500 text-sm md:text-lg max-w-2xl mx-auto px-4">
+          A collection of playable prototypes, tech demos, and full releases. 
           Click on a card to explore gameplay footage, download builds, or view the code.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-24">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 mb-20 md:mb-24 px-2">
         {projects.map((proj, index) => (
           <ProjectCard 
             key={index} 
@@ -345,21 +351,20 @@ const Projects = () => {
         ))}
       </div>
 
-      {/* --- FIXED: Archive Section (Visible Text) --- */}
-      <div className="w-full flex justify-center">
-        <div className="neo-panel p-10 max-w-3xl w-full text-center relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full -translate-y-1/2 translate-x-1/2 opacity-50 group-hover:scale-110 transition-transform duration-700"></div>
+      <div className="w-full flex justify-center px-2">
+        <div className="neo-panel p-6 md:p-10 max-w-3xl w-full text-center relative overflow-hidden group bg-white">
+          <div className="absolute top-0 right-0 w-32 h-32 md:w-64 md:h-64 bg-blue-50 rounded-full -translate-y-1/2 translate-x-1/2 opacity-50 group-hover:scale-110 transition-transform duration-700"></div>
           
           <div className="relative z-10">
-            <h2 className="text-3xl font-black text-black mb-4 tracking-tight">Unlock The Archives</h2>
-            <p className="text-gray-600 text-lg mb-8 max-w-xl mx-auto font-medium">
+            <h2 className="text-2xl md:text-3xl font-black text-black mb-4 tracking-tight">Unlock The Archives</h2>
+            <p className="text-gray-600 text-sm md:text-lg mb-6 md:mb-8 max-w-xl mx-auto font-medium">
               Access a treasure trove of unreleased prototypes, game jam entries, and experimental mechanics stored securely in the cloud vault.
             </p>
             <a
               href={oneDriveLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-4 px-8 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-yellow-400/50 border-2 border-black"
+              className="inline-flex items-center gap-3 bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-3 px-6 md:py-4 md:px-8 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-yellow-400/50 border-2 border-black text-sm md:text-base"
             >
               <span className="text-xl">📂</span>
               <span>Access Full Drive</span>
@@ -369,7 +374,6 @@ const Projects = () => {
         </div>
       </div>
 
-      {/* Modal */}
       {selectedIndex !== null && (
         <ProjectModal
           project={projects[selectedIndex]}
