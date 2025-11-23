@@ -56,75 +56,74 @@ const Home = () => {
         {currentStage && <HomeInfo currentStage={currentStage} />}
       </div>
 
-      {/* --- 1. SIDE NAVIGATION ARROWS (Moved Farther Out) --- */}
+      {/* --- 1. GHOST NAVIGATION ARROWS (No Button Look) --- */}
+      {/* These are purely visual hints, no borders or backgrounds to imply "clicking" */}
       <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-        {/* UPDATED WIDTHS: max-w-xl (mobile) to max-w-7xl (desktop) */}
-        <div className="w-full max-w-xl md:max-w-4xl lg:max-w-7xl flex justify-between px-4">
+        <div className="w-full max-w-xl md:max-w-4xl lg:max-w-7xl flex justify-between px-6">
           
-          {/* LEFT ARROW */}
-          <div className="animate-arrow-left opacity-80">
+          {/* LEFT GHOST ARROW */}
+          <div className="animate-float-left">
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
               fill="none" 
               viewBox="0 0 24 24" 
               strokeWidth={3} 
-              stroke="#FACC15" 
-              className="w-12 h-12 md:w-20 md:h-20 drop-shadow-[0_5px_5px_rgba(0,0,0,0.5)] filter"
+              stroke="white" 
+              className="w-12 h-12 md:w-16 md:h-16 drop-shadow-lg opacity-80"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
             </svg>
           </div>
 
-          {/* RIGHT ARROW */}
-          <div className="animate-arrow-right opacity-80">
+          {/* RIGHT GHOST ARROW */}
+          <div className="animate-float-right">
              <svg 
               xmlns="http://www.w3.org/2000/svg" 
               fill="none" 
               viewBox="0 0 24 24" 
               strokeWidth={3} 
-              stroke="#FACC15" 
-              className="w-12 h-12 md:w-20 md:h-20 drop-shadow-[0_5px_5px_rgba(0,0,0,0.5)] filter" 
+              stroke="white" 
+              className="w-12 h-12 md:w-16 md:h-16 drop-shadow-lg opacity-80"
             >
-               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+               <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
              </svg>
           </div>
 
         </div>
       </div>
 
-      {/* --- 2. BOTTOM CONTROL INDICATOR (Glass HUD) --- */}
+      {/* --- 2. BOTTOM CONTROL INDICATOR (Horizontal Animation) --- */}
       <div className="absolute bottom-20 left-0 right-0 z-10 flex justify-center pointer-events-none">
-        <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 px-8 py-4 bg-white/20 backdrop-blur-xl rounded-2xl border border-white/40 shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] text-gray-800">
+        <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 px-8 py-4 bg-black/20 backdrop-blur-sm rounded-full border border-white/30 shadow-lg text-white">
           
           {/* Mouse/Touch Control Hint */}
-          <div className="flex items-center gap-3">
-            <span className="text-3xl animate-[bounce_2s_infinite]">
-              {isMobile ? "👆" : "🖱️"}
+          <div className="flex items-center gap-4">
+            {/* This icon now sways Left/Right instead of bouncing Up/Down */}
+            <span className="text-3xl animate-sway">
+              {isMobile ? "👆" : "↔️"}
             </span>
-            <span className="text-sm font-bold uppercase tracking-wider text-slate-700">
-              {isMobile ? "Swipe to Explore" : "Slide to Explore"}
+            <span className="text-sm font-bold uppercase tracking-wider">
+              {isMobile ? "Swipe Left / Right" : "Drag Left / Right"}
             </span>
           </div>
 
           {/* Keyboard Control Hint (Only show on Desktop) */}
           {!isMobile && (
             <>
-              <div className="w-px h-8 bg-gray-800/20"></div>
+              <div className="w-px h-6 bg-white/30"></div>
               <div className="flex items-center gap-3">
-                <div className="flex gap-1.5">
-                  <div className="w-8 h-8 flex items-center justify-center bg-white rounded-lg border-b-4 border-gray-300 shadow-sm text-gray-700 font-bold text-lg">
+                <div className="flex gap-1">
+                  <div className="w-7 h-7 flex items-center justify-center bg-white/20 rounded border border-white/50 font-bold text-xs">
                     ←
                   </div>
-                  <div className="w-8 h-8 flex items-center justify-center bg-white rounded-lg border-b-4 border-gray-300 shadow-sm text-gray-700 font-bold text-lg">
+                  <div className="w-7 h-7 flex items-center justify-center bg-white/20 rounded border border-white/50 font-bold text-xs">
                     →
                   </div>
                 </div>
-                <span className="text-sm font-bold uppercase tracking-wider text-slate-700">
-                  Navigate
-                </span>
               </div>
             </>
           )}
+          
         </div>
       </div>
 

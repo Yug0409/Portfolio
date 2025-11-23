@@ -353,3 +353,34 @@ body {
 .animate-arrow-left {
   animation: bounce-horizontal-left 1.5s infinite ease-in-out;
 }
+
+/* --- Add to src/index.css --- */
+
+/* Horizontal Hand/Mouse Sway */
+@keyframes sway-horizontal {
+  0%, 100% { transform: translateX(-10px); }
+  50% { transform: translateX(10px); }
+}
+
+.animate-sway {
+  animation: sway-horizontal 1.5s ease-in-out infinite;
+}
+
+/* Floating Arrow Animation (Smoother) */
+@keyframes float-arrow-right {
+  0%, 100% { transform: translateX(0); opacity: 0.5; }
+  50% { transform: translateX(10px); opacity: 1; }
+}
+
+@keyframes float-arrow-left {
+  0%, 100% { transform: translateX(0); opacity: 0.5; }
+  50% { transform: translateX(-10px); opacity: 1; }
+}
+
+.animate-float-right {
+  animation: float-arrow-right 2s ease-in-out infinite;
+}
+
+.animate-float-left {
+  animation: float-arrow-left 2s ease-in-out infinite;
+}
