@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { arrow } from '../assets/icons';
 
 const InfoBox = ({ text, link, btnText }) => (
-  <div className="neo-brutalism-blue py-3 px-6 text-white mx-auto rounded-xl shadow-lg text-center max-w-md border-2 border-yellow-300">
+  <div className="neo-brutalism-blue py-3 px-6 text-white mx-auto rounded-xl shadow-lg text-center max-w-md border-2 border-yellow-300 animate-fade-in-up">
     {/* Increased to text-lg for normal paragraph text */}
     <p className="mb-3 text-lg leading-relaxed">{text}</p>
     <Link

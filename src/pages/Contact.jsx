@@ -2,7 +2,7 @@ import emailjs from "@emailjs/browser";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useRef, useState } from "react";
 
-import Fox from "../models/Fox";
+import { Fox } from "../models/Fox";
 import useAlert from "../hooks/useAlert";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
@@ -73,11 +73,19 @@ const Contact = () => {
   };
 
   return (
-    <section className="relative flex flex-col lg:flex-row items-center justify-center min-h-screen bg-[#f7fafd] px-4">
+    <section className="relative flex flex-col lg:flex-row items-center justify-center min-h-screen px-4 overflow-hidden">
+      <div className="absolute top-24 right-0 w-80 h-80 bg-blue-50 rounded-full blur-3xl opacity-70 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-60 h-60 bg-indigo-50 rounded-full blur-3xl opacity-70 pointer-events-none" />
       {alert.show && <Alert {...alert} />}
 
-      <div className="flex-1 w-full max-w-lg flex flex-col justify-center items-center lg:items-start mt-16 lg:mt-0">
-        <h1 className="text-4xl font-bold text-black mb-8 text-center lg:text-left">Get in Touch</h1>
+      <div className="flex-1 w-full max-w-lg flex flex-col justify-center items-center lg:items-start mt-16 lg:mt-0 relative z-10 animate-fade-in-up">
+        <p className="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2 text-center lg:text-left">
+          Open Channel
+        </p>
+        <h1 className="text-4xl font-black text-black mb-2 text-center lg:text-left">Let's Connect</h1>
+        <p className="text-gray-500 text-sm mb-8 text-center lg:text-left">
+          Have a project or want to collaborate? Drop me a message.
+        </p>
 
         <form
           ref={formRef}

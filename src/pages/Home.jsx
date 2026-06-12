@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { Suspense, useState, useEffect } from "react";
+import { Suspense, useState, useEffect, useRef } from "react";
 
 import { HomeInfo, Loader } from "../components";
 import { Bird, Island, Plane, Sky } from "../models";
@@ -8,6 +8,35 @@ const Home = () => {
   const [currentStage, setCurrentStage] = useState(1);
   const [isRotating, setIsRotating] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
+  const targetRotationRef = useRef(null);
+  const flyingRef        = useRef(null);
+  const rotateTimer      = useRef(null);
+
+  const STAGE_ANGLES = { 1: 4.5, 2: 2.5, 3: 1.075, 4: 5.65 };
+  const STAGE_NEXT   = { 1: 2, 2: 3, 3: 4, 4: 1 };
+  const STAGE_PREV   = { 1: 4, 2: 1, 3: 2, 4: 3 };
+
+  const handleNext = () => {
+    if (flyingRef.current) return; // already mid-flight
+    const next = STAGE_NEXT[currentStage] ?? 2;
+    flyingRef.current = true;
+    clearTimeout(rotateTimer.current);
+    // Rotate island while plane is climbing (mid-flight sync)
+    rotateTimer.current = setTimeout(() => {
+      targetRotationRef.current = STAGE_ANGLES[next];
+    }, 500);
+  };
+
+  const handlePrev = () => {
+    if (flyingRef.current) return;
+    const prev = STAGE_PREV[currentStage] ?? 4;
+    flyingRef.current = true;
+    clearTimeout(rotateTimer.current);
+    rotateTimer.current = setTimeout(() => {
+      targetRotationRef.current = STAGE_ANGLES[prev];
+    }, 500);
+  };
 
   useEffect(() => {
     const checkMobile = () => {
@@ -53,41 +82,54 @@ const Home = () => {
     <section className='w-full h-screen relative'>
       {/* Popup Info */}
       <div className='absolute top-28 left-0 right-0 z-10 flex items-center justify-center'>
-        {currentStage && <HomeInfo currentStage={currentStage} />}
+        {currentStage && <HomeInfo currentStage={currentStage} key={currentStage} />}
       </div>
 
-      {/* --- 1. GHOST NAVIGATION ARROWS (No Button Look) --- */}
-      {/* These are purely visual hints, no borders or backgrounds to imply "clicking" */}
+      {/* --- 1. NAVIGATION ARROWS --- */}
       <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-        <div className="w-full max-w-xl md:max-w-4xl lg:max-w-7xl flex justify-between px-6">
-          
-          {/* LEFT GHOST ARROW */}
-          <div className="animate-float-left">
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              strokeWidth={3} 
-              stroke="white" 
-              className="w-12 h-12 md:w-16 md:h-16 drop-shadow-lg opacity-80"
+        <div className="w-full max-w-xl md:max-w-4xl lg:max-w-7xl flex justify-between px-4 md:px-6">
+
+          {/* LEFT ARROW */}
+          <button
+            onClick={handlePrev}
+            aria-label="Previous stage"
+            className="pointer-events-auto animate-float-left group p-3 md:p-4 rounded-full
+              bg-white/10 backdrop-blur-sm border border-white/30
+              hover:bg-white/25 hover:border-white/60 hover:scale-110
+              active:scale-95 transition-all duration-200 cursor-pointer focus:outline-none"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={3}
+              stroke="white"
+              className="w-10 h-10 md:w-14 md:h-14 drop-shadow-lg opacity-80 group-hover:opacity-100 transition-opacity"
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
             </svg>
-          </div>
+          </button>
 
-          {/* RIGHT GHOST ARROW */}
-          <div className="animate-float-right">
-             <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              strokeWidth={3} 
-              stroke="white" 
-              className="w-12 h-12 md:w-16 md:h-16 drop-shadow-lg opacity-80"
+          {/* RIGHT ARROW */}
+          <button
+            onClick={handleNext}
+            aria-label="Next stage"
+            className="pointer-events-auto animate-float-right group p-3 md:p-4 rounded-full
+              bg-white/10 backdrop-blur-sm border border-white/30
+              hover:bg-white/25 hover:border-white/60 hover:scale-110
+              active:scale-95 transition-all duration-200 cursor-pointer focus:outline-none"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={3}
+              stroke="white"
+              className="w-10 h-10 md:w-14 md:h-14 drop-shadow-lg opacity-80 group-hover:opacity-100 transition-opacity"
             >
-               <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-             </svg>
-          </div>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
 
         </div>
       </div>
@@ -155,12 +197,14 @@ const Home = () => {
             isRotating={isRotating}
             setIsRotating={setIsRotating}
             setCurrentStage={setCurrentStage}
+            targetRotationRef={targetRotationRef}
             position={islandPosition}
             rotation={[0.1, 4.7077, 0]}
             scale={islandScale}
           />
           <Plane
             isRotating={isRotating}
+            flyingRef={flyingRef}
             position={biplanePosition}
             rotation={[0, 20.1, 0]}
             scale={biplaneScale}

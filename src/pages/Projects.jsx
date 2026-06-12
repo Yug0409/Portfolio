@@ -3,6 +3,22 @@ import React, { useState, useEffect } from "react";
 // --- PROJECT DATA ---
 const projects = [
   {
+    title: "ICR – India Car Racing",
+    logo: null,
+    placeholderGradient: "linear-gradient(135deg, #1e3a8a 0%, #4c1d95 100%)",
+    placeholderIcon: "🏎️",
+    type: "3D Multiplayer Racing Game",
+    status: "In Development",
+    tags: ["Unity", "C#", "Photon PUN2", "Android", "iOS", "Windows"],
+    desc: "A full-featured 3D racing game set across 20+ circuits inspired by real Indian landmarks — Delhi Metro, Varanasi Ghats, Budh International Circuit, Marina Beach, Atal Tunnel, Jaipur, and more. Published on Android, iOS, and Windows with cross-platform multiplayer — players on any platform race together in real time via Photon PUN2. Packed with physics-based driving (Unity Wheel Colliders), a 6-type combat powerup system (homing missiles, mines, thunder shock, shield...), rubber-band AI, Google Ads + Firebase analytics, an addressable track download system, and a full Open World India free-roam multiplayer mode. Started as Game Developer and promoted to Game Manager in Week 8 — led a 4-person team and personally architected the entire Open World India mode from scratch.",
+    videoUrl: null,
+    gallery: [],
+    downloadLinkAndroid: null,
+    downloadLinkPC: null,
+    githubLink: null,
+    walkthroughLink: null,
+  },
+  {
     title: "Fish Frenzy",
     logo: "/Images/Fish Frenzy/Logo.jpg",
     type: "2D Mobile & PC Game",
@@ -161,7 +177,16 @@ const ProjectModal = ({ project, onClose, onNextProject, onPrevProject }) => {
 
         {/* Main Media Display - Height adjusted for mobile */}
         <div className="relative w-full h-[35vh] md:h-[60vh] bg-neutral-900 flex items-center justify-center border-b-4 border-black">
-          {currentMedia?.type === "video" ? (
+          {mediaList.length === 0 ? (
+            <div
+              className="w-full h-full flex flex-col items-center justify-center gap-3"
+              style={{ background: project.placeholderGradient || "linear-gradient(135deg,#1e3a8a,#4c1d95)" }}
+            >
+              <span className="text-8xl drop-shadow-2xl">{project.placeholderIcon || "🎮"}</span>
+              <p className="text-white/70 font-bold text-sm tracking-widest uppercase">Screenshots Coming Soon</p>
+              <p className="text-white/40 text-xs">Game currently in development</p>
+            </div>
+          ) : currentMedia?.type === "video" ? (
             isYouTube(currentMedia.url) ? (
               <iframe
                 src={currentMedia.url}
@@ -276,17 +301,52 @@ const ProjectModal = ({ project, onClose, onNextProject, onPrevProject }) => {
 };
 
 // --- COMPONENT: PROJECT CARD ---
-const ProjectCard = ({ project, onClick }) => (
+const ProjectCard = ({ project, onClick }) => {
+  const handleTilt = (e) => {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    const rotX = ((e.clientY - rect.top  - rect.height / 2) / rect.height) * 10;
+    const rotY = ((rect.width / 2 - (e.clientX - rect.left)) / rect.width)  * 10;
+    el.style.transition = "transform 0.1s ease";
+    el.style.transform  = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.03)`;
+  };
+  const resetTilt = (e) => {
+    const el = e.currentTarget;
+    el.style.transition = "transform 0.5s ease";
+    el.style.transform  = "";
+  };
+
+  return (
   <div
     onClick={() => onClick(project)}
-    className="group relative bg-white rounded-2xl border-2 border-slate-300 hover:border-blue-600 shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden flex flex-col h-full hover:-translate-y-2"
+    onMouseMove={handleTilt}
+    onMouseLeave={resetTilt}
+    className="group relative bg-white rounded-2xl border-2 border-slate-200 hover:border-blue-500 shadow-md hover:shadow-[0_8px_30px_rgba(59,130,246,0.2)] cursor-pointer overflow-hidden flex flex-col h-full"
+    style={{ willChange: "transform" }}
   >
-    <div className="relative w-full h-48 md:h-56 bg-gray-100 overflow-hidden border-b border-gray-200">
-      <img
-        src={project.logo}
-        alt={project.title}
-        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-      />
+    <div className="relative w-full h-48 md:h-56 overflow-hidden border-b border-gray-200">
+      {project.logo ? (
+        <img
+          src={project.logo}
+          alt={project.title}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+      ) : (
+        <div
+          className="w-full h-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110"
+          style={{ background: project.placeholderGradient || "linear-gradient(135deg,#3b82f6,#6366f1)" }}
+        >
+          <span className="text-7xl drop-shadow-lg">{project.placeholderIcon || "🎮"}</span>
+        </div>
+      )}
+      {project.status && (
+        <div className="absolute top-3 left-3 z-10">
+          <span className="flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-full bg-orange-500 text-white shadow-md">
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse inline-block" />
+            {project.status}
+          </span>
+        </div>
+      )}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
         <span className="bg-blue-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
           View Project
@@ -311,7 +371,8 @@ const ProjectCard = ({ project, onClick }) => (
       </div>
     </div>
   </div>
-);
+  );
+};
 
 // --- MAIN PAGE ---
 const Projects = () => {
@@ -331,12 +392,12 @@ const Projects = () => {
       
       <div className="absolute top-0 right-0 -z-10 w-64 h-64 md:w-96 md:h-96 bg-blue-100 rounded-full blur-3xl opacity-50 translate-x-1/2 -translate-y-1/2"></div>
 
-      <div className="text-center mb-12 md:mb-16">
+      <div className="text-center mb-12 md:mb-16 animate-fade-in-up">
         <p className="text-sm md:text-lg font-bold text-blue-600 uppercase tracking-[0.2em] mb-2">
           My Portfolio
         </p>
         <h1 className="text-4xl md:text-6xl font-black text-gray-900 tracking-tight mb-4">
-          Game <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Library</span>
+          Game <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 glitch-anim">Library</span>
         </h1>
         <p className="text-gray-500 text-sm md:text-lg max-w-2xl mx-auto px-4">
           A collection of playable prototypes, tech demos, and full releases. 
@@ -344,7 +405,7 @@ const Projects = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 mb-20 md:mb-24 px-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 mb-20 md:mb-24 px-2 animate-fade-in-up delay-200">
         {projects.map((proj, index) => (
           <ProjectCard 
             key={index} 

@@ -20,6 +20,7 @@ export function Island({
   isRotating,
   setIsRotating,
   setCurrentStage,
+  targetRotationRef,
   currentFocusPoint,
   ...props
 }) {
@@ -157,6 +158,34 @@ export function Island({
 
   // This function is called on each frame update
   useFrame(() => {
+    // Programmatic snap-to-stage triggered by arrow buttons
+    if (targetRotationRef?.current !== null && targetRotationRef?.current !== undefined) {
+      const target = targetRotationRef.current;
+      const current = islandRef.current.rotation.y;
+      const normalizedCurrent = ((current % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+
+      let diff = target - normalizedCurrent;
+      if (diff > Math.PI) diff -= 2 * Math.PI;
+      if (diff < -Math.PI) diff += 2 * Math.PI;
+
+      if (Math.abs(diff) < 0.025) {
+        islandRef.current.rotation.y = current + diff;
+        targetRotationRef.current = null;
+        rotationSpeed.current = 0;
+        // Set stage from the known target angle
+        if (target >= 5.25 && target <= 6.05) setCurrentStage(4);
+        else if (target >= 0.65 && target <= 1.5) setCurrentStage(3);
+        else if (target >= 2.1 && target <= 2.9) setCurrentStage(2);
+        else if (target >= 4.0 && target <= 5.0) setCurrentStage(1);
+        return;
+      }
+
+      const step = diff * 0.1;
+      islandRef.current.rotation.y += step;
+      rotationSpeed.current = step;
+      return;
+    }
+
     // If not rotating, apply damping to slow down the rotation (smoothly)
     if (!isRotating) {
       // Apply damping factor
