@@ -37,7 +37,7 @@ const questLog = [
     title: "Game Developer → Game Manager | Ansh Jain Global Networks LLP",
     date: "Dec 2025 – June 2026 · On-site · Kota",
     desc: "Core developer and promoted Game Manager on ICR – India Car Racing (Multiplayer), a Unity 3D racing game with 20+ Indian landmark tracks, real-time Photon PUN2 multiplayer, 19 cars, and an Open World India free-roam mode. Promoted to Game Manager in Week 8 — led a 4-person team, drove the full production roadmap, and single-handedly designed and built the complete Open World India multiplayer mode from concept to launch. Delivered a production-ready build published on Android, iOS, and Windows with cross-platform multiplayer.",
-    current: true,
+    current: false,
   },
   {
     title: "Game Developer Intern | IITian Craft (Remote)",
@@ -231,6 +231,11 @@ const About = () => {
                         <span className="flex items-center gap-1.5 text-xs font-bold text-blue-700 bg-blue-100 px-2.5 py-1 rounded-full border border-blue-300 shrink-0">
                           <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse inline-block" />
                           Active
+                        </span>
+                      )}
+                      {!quest.current && (
+                        <span className="flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-full border border-emerald-300 shrink-0">
+                          Completed
                         </span>
                       )}
                     </div>
