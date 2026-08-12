@@ -4,11 +4,10 @@ import React, { useState, useEffect } from "react";
 const projects = [
   {
     title: "ICR – India Car Racing",
-    logo: null,
+    logo: "/Images/ICR/Logo.png",
     placeholderGradient: "linear-gradient(135deg, #1e3a8a 0%, #4c1d95 100%)",
     placeholderIcon: "🏎️",
     type: "3D Multiplayer Racing Game",
-    status: "In Development",
     tags: ["Unity", "C#", "Photon PUN2", "Android", "iOS", "Windows"],
     desc: "A full-featured 3D racing game set across 20+ circuits inspired by real Indian landmarks — Delhi Metro, Varanasi Ghats, Budh International Circuit, Marina Beach, Atal Tunnel, Jaipur, and more. Published on Android, iOS, and Windows with cross-platform multiplayer — players on any platform race together in real time via Photon PUN2. Packed with physics-based driving (Unity Wheel Colliders), a 6-type combat powerup system (homing missiles, mines, thunder shock, shield...), rubber-band AI, Google Ads + Firebase analytics, an addressable track download system, and a full Open World India free-roam multiplayer mode. Started as Game Developer and promoted to Game Manager in Week 8 — led a 4-person team and personally architected the entire Open World India mode from scratch.",
     videoUrl: "/Images/ICR/YTDown.com_YouTube_ICR-Gameplay-Indian-Car-Racing-Simulator_Media_vPhAA3kv1B8_002_720p.mp4",
