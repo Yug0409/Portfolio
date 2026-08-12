@@ -11,9 +11,11 @@ const projects = [
     status: "In Development",
     tags: ["Unity", "C#", "Photon PUN2", "Android", "iOS", "Windows"],
     desc: "A full-featured 3D racing game set across 20+ circuits inspired by real Indian landmarks — Delhi Metro, Varanasi Ghats, Budh International Circuit, Marina Beach, Atal Tunnel, Jaipur, and more. Published on Android, iOS, and Windows with cross-platform multiplayer — players on any platform race together in real time via Photon PUN2. Packed with physics-based driving (Unity Wheel Colliders), a 6-type combat powerup system (homing missiles, mines, thunder shock, shield...), rubber-band AI, Google Ads + Firebase analytics, an addressable track download system, and a full Open World India free-roam multiplayer mode. Started as Game Developer and promoted to Game Manager in Week 8 — led a 4-person team and personally architected the entire Open World India mode from scratch.",
-    videoUrl: null,
+    videoUrl: "/Images/ICR/YTDown.com_YouTube_ICR-Gameplay-Indian-Car-Racing-Simulator_Media_vPhAA3kv1B8_002_720p.mp4",
     gallery: [],
-    downloadLinkAndroid: null,
+    downloadLinkAndroid: "https://play.google.com/store/apps/details?id=com.ANSHJAINGLOBALNETWORS.ICR",
+    downloadLabelAndroid: "Play Store",
+    downloadLinkAndroidExternal: true,
     downloadLinkPC: null,
     githubLink: null,
     walkthroughLink: null,
@@ -248,9 +250,15 @@ const ProjectModal = ({ project, onClose, onNextProject, onPrevProject }) => {
             {/* Buttons stack on mobile, row on desktop */}
             <div className="flex flex-col sm:flex-row gap-3">
               {project.downloadLinkAndroid && (
-                <a href={project.downloadLinkAndroid} download className="neo-btn flex items-center justify-center gap-2 w-full sm:w-auto min-w-[160px] bg-green-50 hover:bg-green-100 text-green-700 border-green-200 py-3">
+                <a
+                  href={project.downloadLinkAndroid}
+                  {...(project.downloadLinkAndroidExternal
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : { download: true })}
+                  className="neo-btn flex items-center justify-center gap-2 w-full sm:w-auto min-w-[160px] bg-green-50 hover:bg-green-100 text-green-700 border-green-200 py-3"
+                >
                   <span className="text-xl">🤖</span>
-                  <span className="btn-text text-sm font-bold">Android APK</span>
+                  <span className="btn-text text-sm font-bold">{project.downloadLabelAndroid || "Android APK"}</span>
                 </a>
               )}
 
