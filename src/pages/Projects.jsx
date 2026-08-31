@@ -10,8 +10,17 @@ const projects = [
     type: "3D Multiplayer Racing Game",
     tags: ["Unity", "C#", "Photon PUN2", "Android", "iOS", "Windows"],
     desc: "A full-featured 3D racing game set across 20+ circuits inspired by real Indian landmarks — Delhi Metro, Varanasi Ghats, Budh International Circuit, Marina Beach, Atal Tunnel, Jaipur, and more. Published on Android, iOS, and Windows with cross-platform multiplayer — players on any platform race together in real time via Photon PUN2. Packed with physics-based driving (Unity Wheel Colliders), a 6-type combat powerup system (homing missiles, mines, thunder shock, shield...), rubber-band AI, Google Ads + Firebase analytics, an addressable track download system, and a full Open World India free-roam multiplayer mode. Started as Game Developer and promoted to Game Manager in Week 8 — led a 4-person team and personally architected the entire Open World India mode from scratch.",
-    videoUrl: "/Images/ICR/YTDown.com_YouTube_ICR-Gameplay-Indian-Car-Racing-Simulator_Media_vPhAA3kv1B8_002_720p.mp4",
-    gallery: [],
+    videoUrl: "/Images/ICR/ICR-Gameplay.mp4",
+    gallery: [
+      "/Images/ICR/ICR-Screenshot-01.jpeg",
+      "/Images/ICR/ICR-Screenshot-02.jpeg",
+      "/Images/ICR/ICR-Screenshot-03.jpeg",
+      "/Images/ICR/ICR-Screenshot-04.jpeg",
+      "/Images/ICR/ICR-Screenshot-05.jpeg",
+      "/Images/ICR/ICR-Screenshot-06.jpeg",
+      "/Images/ICR/ICR-Screenshot-07.jpeg",
+      "/Images/ICR/ICR-Screenshot-08.jpeg",
+    ],
     downloadLinkAndroid: "https://play.google.com/store/apps/details?id=com.ANSHJAINGLOBALNETWORS.ICR",
     downloadLabelAndroid: "Play Store",
     downloadLinkAndroidExternal: true,
@@ -198,12 +207,15 @@ const ProjectModal = ({ project, onClose, onNextProject, onPrevProject }) => {
               ></iframe>
             ) : (
               <video
-                src={currentMedia.url}
                 className="w-full h-full object-contain"
                 controls
                 autoPlay
                 loop
+                muted
+                playsInline
+                preload="metadata"
               >
+                <source src={currentMedia.url} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             )
